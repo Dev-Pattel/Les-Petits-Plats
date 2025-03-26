@@ -82,7 +82,7 @@ displayRecipes(recipes);
 
 
 /* ----------------------------
-   BARRE DE RECHERCHE PRINCIPALE (PROGRAMMATION FONCTIONNELLE)
+   BARRE DE RECHERCHE PRINCIPALE (BOUCLE NATIVES)
 ---------------------------- */
 const mainSearchInput = document.getElementById("search-bar");
 const closeIcon = document.getElementById("close-icon");  
@@ -123,6 +123,10 @@ closeIcon.addEventListener("click", () => {
   populateDeviceList(recipes);
 });
 
+/**
+ * Nouvelle version de handleMainSearch
+ * utilisant uniquement des boucles natives
+ */
 function handleMainSearch() {
   const searchTerm = mainSearchInput.value.toLowerCase().trim();
 
@@ -135,15 +139,34 @@ function handleMainSearch() {
     return;
   }
 
-  // Filtrer selon nom / description / ingrédients
-  const filteredRecipes = recipes.filter((recipe) => {
-    const inName = recipe.name.toLowerCase().includes(searchTerm);
-    const inDescription = recipe.description.toLowerCase().includes(searchTerm);
-    const inIngredients = recipe.ingredients.some((ing) =>
-      ing.ingredient.toLowerCase().includes(searchTerm)
-    );
-    return inName || inDescription || inIngredients;
-  });
+  // Filtrage manuel avec des boucles
+  const filteredRecipes = [];
+  
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+    const recipeName = recipe.name.toLowerCase();
+    const recipeDescription = recipe.description.toLowerCase();
+
+    // Vérifie si le terme est dans le nom
+    const inName = recipeName.includes(searchTerm);
+    
+    // Vérifie si le terme est dans la description
+    const inDescription = recipeDescription.includes(searchTerm);
+
+    // Vérifie si le terme est dans l'un des ingrédients
+    let inIngredients = false;
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredientName = recipe.ingredients[j].ingredient.toLowerCase();
+      if (ingredientName.includes(searchTerm)) {
+        inIngredients = true;
+        break;
+      }
+    }
+
+    if (inName || inDescription || inIngredients) {
+      filteredRecipes.push(recipe);
+    }
+  }
 
   displayRecipes(filteredRecipes);
   populateIngredientList(filteredRecipes);
