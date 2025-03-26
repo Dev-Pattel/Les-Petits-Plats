@@ -10,48 +10,52 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     >
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-      integrity="sha512-MV7K8+y+..."
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+..." crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
+
   </head>
   <body>
-
     <header>
-        <img src="assets/images/preview_template.png" alt="preview_template.png">
-        <img src="assets/images/en_tete.jpeg" alt="en_tete.jpeg">
-        <div id="header-elements">
-            <nav class="navbar">
-                <div class="container">
-                <a class="navbar-brand text-white fw-bold" href="#">
-                    <img src="assets/images/Logo.png" alt="Logo" id="header-logo">
-                </a>
-                </div>
-            </nav>
+      <img src="assets/images/preview_template.png" alt="preview_template.png">
+      <img src="assets/images/en_tete.jpeg" alt="en_tete.jpeg">
+      <div id="header-elements">
+        <nav class="navbar">
+          <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">
+              <img src="assets/images/Logo.png" alt="Logo" id="header-logo">
+            </a>
+          </div>
+        </nav>
 
-            <div class="container d-flex flex-column justify-content-center align-items-center h-100">
-                <div class="d-flex justify-content-center align-items-center w-50 my-4">
+        <div class="container d-flex flex-column justify-content-center align-items-center h-100">
+          <div class="d-flex justify-content-center align-items-center w-50 my-4">
             <h1 class="text-center text-uppercase lh-base">
-            Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses
+              Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses
             </h1>
-            </div>
-        
-     
-            <form id="search-form" name="search" class="w-75">
+          </div>
+      
+          <form id="search-form" name="search" class="w-75">
             <div id="search">
-                <input type="text" id="search-bar" name="search" class="w-100 rounded-3 px-3 py-3" placeholder="Rechercher une recette, un ingrédient, ..." />
-                <a href="" id="close-icon" class="d-none"><i class="fa fa-times"></i></a>
-                <a href="" id="search-icon" class="px-3 py-2 d-inline-block rounded-3 text-white"><i class="fa fa-search"></i></a>
+              <input 
+                type="text" 
+                id="search-bar" 
+                name="search" 
+                class="w-100 rounded-3 px-3 py-3" 
+                placeholder="Rechercher une recette, un ingrédient, ..." 
+              />
+              <a href="" id="close-icon" class="d-none">
+                <i class="fa fa-times"></i>
+              </a>
+              <a href="" id="search-icon" class="px-3 py-2 d-inline-block rounded-3 text-white">
+                <i class="fa fa-search"></i>
+              </a>
             </div>
             <input type="hidden" value="Submit" />
-            </form>
+          </form>
         </div>
       </div>
     </header>
@@ -59,61 +63,93 @@
     <main>
       <div class="container pb-4">
         <div class="d-flex align-items-center mt-4">
-          <div id="dropdown-filters" class=""flex-grow-1>
+          <div id="dropdown-filters" class="flex-grow-1">
+            <!-- Dropdown ingrédients -->
             <div id="dropdown-filter-ingredients" class="dropdown dropdown-filter">
-              <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" data-bs-offset="0, -10" aria-expanded="false">
+              <button type="button" id="dropdown-ingredients-btn">
                 <span>Ingrédients <i class="fa fa-angle-down"></i></span>
               </button>
-              <div class="dropdown-menu">
+              <div class="dropdown-menu" id="dropdown-ingredients-menu">
                 <div class="p-3 dropdown-filter-input-search">
-                    <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
-                        <input id="ingredients-search" type="text" name="search" class="w-100" />
-                        <div class="d-flex align-items-center ms-2">
-                            <a href="javascript:void(0)" class="d-none ingre-clear"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)" class="ms-2"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
+                  <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
+                    <input 
+                      id="ingredients-search" 
+                      type="text" 
+                      name="search" 
+                      class="w-100" 
+                    />
+                    <div class="d-flex align-items-center ms-2">
+                      <a href="javascript:void(0)" class="d-none ingre-clear">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </a>
+                      <a href="javascript:void(0)" class="ms-2">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
                     </div>
+                  </div>
                 </div>
                 <div id="dropdown-filter-data-ingredients" class="list-group"></div>
-                </div>
+              </div>
             </div>
+
+            <!-- Dropdown ustensiles -->
             <div id="dropdown-filter-ustensils" class="dropdown dropdown-filter">
-              <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" data-bs-offset="0, -10" aria-expanded="false">
+              <button type="button">
                 <span>Ustensiles <i class="fa fa-angle-down"></i></span>
               </button>
               <div class="dropdown-menu">
                 <div class="p-3 dropdown-filter-input-search">
-                    <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
-                        <input id="ustensils-search" type="text" name="search" class="w-100" />
-                        <div class="d-flex align-items-center ms-2">
-                            <a href="javascript:void(0)" class="d-none ingre-clear"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)" class="ms-2"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
+                  <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
+                    <input 
+                      id="ustensils-search" 
+                      type="text" 
+                      name="search" 
+                      class="w-100" 
+                    />
+                    <div class="d-flex align-items-center ms-2">
+                      <a href="javascript:void(0)" class="d-none ingre-clear">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </a>
+                      <a href="javascript:void(0)" class="ms-2">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
                     </div>
+                  </div>
                 </div>
                 <div id="dropdown-filter-data-ustensils" class="list-group"></div>
-                </div>
+              </div>
             </div>
+
+            <!-- Dropdown appareils -->
             <div id="dropdown-filter-device" class="dropdown dropdown-filter">
-              <button type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" data-bs-offset="0, -10" aria-expanded="false">
+              <button type="button">
                 <span>Appareils <i class="fa fa-angle-down"></i></span>
               </button>
               <div class="dropdown-menu">
                 <div class="p-3 dropdown-filter-input-search">
-                    <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
-                        <input id="device-search" type="text" name="search" class="w-100" />
-                        <div class="d-flex align-items-center ms-2">
-                            <a href="javascript:void(0)" class="d-none ingre-clear"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)" class="ms-2"><i class="fa fa-search" aria-hidden="true"></i></a>
-                        </div>
+                  <div class="border d-flex justify-content-center w-100 px-2 py-1 rounded">
+                    <input 
+                      id="device-search" 
+                      type="text" 
+                      name="search" 
+                      class="w-100" 
+                    />
+                    <div class="d-flex align-items-center ms-2">
+                      <a href="javascript:void(0)" class="ms-2">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
                     </div>
+                  </div>
                 </div>
                 <div id="dropdown-filter-data-device" class="list-group"></div>
-                </div>
+              </div>
             </div>
           </div>
+
           <span id="recipes-count" class="anton-regular fs-4"></span>
         </div>
+        <div id="selected-tags" class="d-flex flex-wrap p-2"></div>
+        
         <div id="recipes" class="mt-4">
           <div id="recipes-cards" class="row row-cols-1 row-cols-md-3 g-4 grid"></div>
         </div>
@@ -124,4 +160,3 @@
     <script src="assets/js/index.js"></script>
   </body>
 </html>
-
