@@ -347,7 +347,7 @@ document.addEventListener("click", (event) => {
 function getAllUstensils(recipesArr) {
   const ustSet = new Set();
   recipesArr.forEach(r => {
-    // Dans l'objet JSON, je suppose que "ustensils" est un array
+
     if (r.ustensils) {
       r.ustensils.forEach(u => ustSet.add(u.toLowerCase()));
     }
