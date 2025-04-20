@@ -1,5 +1,8 @@
 "use strict";
 
+let mainSearchTerm = "";
+
+
 /* ----------------------------
    FONCTIONS D'AFFICHAGE
 ---------------------------- */
@@ -116,6 +119,7 @@ mainSearchInput.addEventListener("keydown", (event) => {
 
 closeIcon.addEventListener("click", () => {
   mainSearchInput.value = "";
+  mainSearchTerm = "";
   closeIcon.classList.add("d-none");
   displayRecipes(recipes); 
   populateIngredientList(recipes); 
@@ -123,12 +127,12 @@ closeIcon.addEventListener("click", () => {
   populateDeviceList(recipes);
 });
 
-/*Version de handleMainSearch avec des boucles natives*/
+/*Version de handleMainSearch en programmation fonctionnelle*/
 
 function handleMainSearch() {
   const searchTerm = mainSearchInput.value.toLowerCase().trim();
+  mainSearchTerm = searchTerm;
 
-  // Si la recherche fait moins de 3 caractères, on réaffiche tout
   if (searchTerm.length < 3) {
     displayRecipes(recipes);
     populateIngredientList(recipes);
@@ -137,34 +141,15 @@ function handleMainSearch() {
     return;
   }
 
-  // Filtrage manuel avec des boucles
-  const filteredRecipes = [];
-  
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    const recipeName = recipe.name.toLowerCase();
-    const recipeDescription = recipe.description.toLowerCase();
-
-    // Vérifie si le terme est dans le nom
-    const inName = recipeName.includes(searchTerm);
-    
-    // Vérifie si le terme est dans la description
-    const inDescription = recipeDescription.includes(searchTerm);
-
-    // Vérifie si le terme est dans l'un des ingrédients
-    let inIngredients = false;
-    for (let j = 0; j < recipe.ingredients.length; j++) {
-      const ingredientName = recipe.ingredients[j].ingredient.toLowerCase();
-      if (ingredientName.includes(searchTerm)) {
-        inIngredients = true;
-        break;
-      }
-    }
-
-    if (inName || inDescription || inIngredients) {
-      filteredRecipes.push(recipe);
-    }
-  }
+  // Filtrer selon nom / description / ingrédients
+  const filteredRecipes = recipes.filter((recipe) => {
+    const inName = recipe.name.toLowerCase().includes(searchTerm);
+    const inDescription = recipe.description.toLowerCase().includes(searchTerm);
+    const inIngredients = recipe.ingredients.some((ing) =>
+      ing.ingredient.toLowerCase().includes(searchTerm)
+    );
+    return inName || inDescription || inIngredients;
+  });
 
   displayRecipes(filteredRecipes);
   populateIngredientList(filteredRecipes);
@@ -554,6 +539,15 @@ deviceSearchField.addEventListener("input", () => {
 ----------------------------------------- */
 function filterAndDisplayRecipes() {
   let filtered = [...recipes];
+
+  if (mainSearchTerm.length >= 3) {
+    const t = mainSearchTerm;
+    filtered = filtered.filter(r =>
+      r.name.toLowerCase().includes(t) ||
+      r.description.toLowerCase().includes(t) ||
+      r.ingredients.some(ing => ing.ingredient.toLowerCase().includes(t))
+    );
+  }
 
   // 1) Par ingrédients
   if (selectedIngredients.length > 0) {
